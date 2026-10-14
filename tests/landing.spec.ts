@@ -196,6 +196,41 @@ test('mobile CTA follows the middle sections and leaves the form unobstructed', 
   expect(formBackground).toContain('gradient');
 });
 
+test('clinical input blocks replay on entering and leaving in both directions', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const map = page.locator('.information-map');
+  const blocks = map.locator('.map-input');
+  const allVisible = () =>
+    blocks.evaluateAll((items) =>
+      items.every((item) => getComputedStyle(item).visibility === 'visible'),
+    );
+  const allHidden = () =>
+    blocks.evaluateAll((items) =>
+      items.every((item) => getComputedStyle(item).visibility === 'hidden'),
+    );
+  await expect(blocks).toHaveCount(6);
+  await expect.poll(allHidden).toBe(true);
+  await map.scrollIntoViewIfNeeded();
+  await expect.poll(allVisible).toBe(true);
+  await page.evaluate(() =>
+    window.scrollTo({
+      top: document.querySelector('#plataforma')!.getBoundingClientRect().top + scrollY + 700,
+      behavior: 'instant',
+    }),
+  );
+  await expect.poll(allHidden).toBe(true);
+  await map.scrollIntoViewIfNeeded();
+  await expect.poll(allVisible).toBe(true);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await expect.poll(allHidden).toBe(true);
+  await map.scrollIntoViewIfNeeded();
+  await expect.poll(allVisible).toBe(true);
+});
+
 test('mobile navigation and conversion controls work with the keyboard', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');

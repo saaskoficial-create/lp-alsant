@@ -8,10 +8,10 @@ Verificações realizadas em 14/10/2026, Windows, Node 24.16.0 e Chrome 154. O p
 - Checagem Astro/TypeScript: zero erros, avisos ou hints.
 - ESLint e build de produção concluídos.
 - 34 testes do schema/endpoint aprovados: validação, normalização, tamanho do payload, antispam, atribuição permitida, configuração, falhas e aceite do destino.
-- 20 cenários Playwright aprovados. A nova cobertura confirma que o CTA fixo aparece após a segunda seção no mobile, leva à conversão e desaparece sobre o formulário. A rodada completa anterior havia encontrado e corrigido contraste insuficiente nas abas inativas.
+- 21 cenários Playwright aprovados. A cobertura inclui o CTA mobile e a entrada e saída reversíveis dos seis blocos clínicos nos dois sentidos da rolagem.
 - Formulário inválido, indisponibilidade real 503, resposta 2xx do receptor local, falha 502, timeout 504 e bloqueio de envio duplicado verificados no navegador. Erros preservam o preenchimento. Sucesso ocorre somente após aceite do destino.
 - Sem JavaScript: conteúdo legível e formulário desabilitado com orientação; método POST evita expor os campos pela URL.
-- A CI em `.github/workflows/ci.yml` repete instalação limpa, check, lint, testes, build e os 20 cenários com Chromium no Ubuntu. Histórico disponível em [GitHub Actions](https://github.com/saaskoficial-create/lp-alsant/actions).
+- A CI em `.github/workflows/ci.yml` repete instalação limpa, check, lint, testes, build e os cenários Playwright com Chromium no Ubuntu. Histórico disponível em [GitHub Actions](https://github.com/saaskoficial-create/lp-alsant/actions).
 
 ## Interface e acessibilidade
 
@@ -42,6 +42,7 @@ O SEO do preview continua afetado intencionalmente por `noindex, nofollow`; não
 Após a revisão de tipografia e GSAP, Lighthouse mobile local em 14/10/2026 às 20:21 UTC: desempenho 89, acessibilidade 100, boas práticas 100, LCP 3,6 s e CLS 0 (`lighthouse-motion-mobile.json`). O desempenho caiu três pontos em relação à revisão anterior, associado à nova composição do H1 e carga de movimento. O GSAP foi adiado para depois do carregamento inicial; a auditoria automatizada de contraste voltou a 100 ao manter opacidade integral dos textos. A meta aspiracional de desempenho 90 ficou a um ponto nesta medição local.
 
 O `/impeccable init` registrou o contexto confirmado em `PRODUCT.md` e a preferência por evolução direta no código em `.impeccable/config.json`. O detector manual apontou dois avisos genéricos de fonte superutilizada para `Instrument Sans`; a fonte foi mantida porque faz parte da identidade Biosenz documentada. O passe de acabamento alinhou tracking do H1 e os estados nativos do navegador à paleta.
+
 
 ## Limites e pendências
 
