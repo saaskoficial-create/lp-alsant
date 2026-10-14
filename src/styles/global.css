@@ -2119,7 +2119,7 @@ select:focus-visible {
   font-size: clamp(52px, 5.25vw, 82px);
   font-weight: 650;
   line-height: 0.99;
-  letter-spacing: -0.048em;
+  letter-spacing: -0.04em;
 }
 .hero-ink {
   color: #11583b;
@@ -2335,4 +2335,22 @@ select:focus-visible {
   .mobile-sticky-cta {
     transform: none;
   }
+}
+
+/* Browser-native states follow the Biosenz palette too. */
+::selection {
+  background: #b8dbc4;
+  color: #123d2b;
+}
+html {
+  scrollbar-color: #8db69a #f1f6f2;
+  scrollbar-width: thin;
+}
+.lead-form input,
+.lead-form select {
+  caret-color: #1e6b45;
+}
+.lead-form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-text-fill-color: #253d30;
 }

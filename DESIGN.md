@@ -27,6 +27,8 @@ O vídeo decorativo de oito segundos usa reprodução nativa silenciosa em loop.
 
 Os CTAs e controles usam uma adaptação web da referência Liquid Glass: gradientes verdes translúcidos, reflexo interno, desfoque sutil, sombra e brilho curto ao hover/foco. O movimento é acionado pela interação; `prefers-reduced-motion` mantém os controles estáticos. São efeitos CSS, sem APIs nativas do macOS.
 
+Na revisão com Impeccable, o contexto durável de produto passou a `PRODUCT.md`. O H1 preserva legibilidade com tracking limitado a `-0.04em`; seleção de texto, scrollbar, caret e autofill usam a paleta da marca. `Instrument Sans` é uma fonte identificada na identidade existente e permanece deliberadamente, apesar do aviso genérico do detector.
+
 ## Conteúdo e estados
 
 Sete módulos: hero, problema, plataforma, comparação, diferenciação, depoimentos e conversão. Depoimentos permanecem ocultos até existir um mínimo de dois registros reais aprovados em src/content/landing.ts. As capturas do produto usam dados fictícios públicos; a foto de consulta é licenciada e o vídeo anatômico é uma ilustração sintética. Proveniência documentada separadamente. Todos os CTAs comerciais levam a #demonstracao.

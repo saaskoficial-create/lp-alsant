@@ -41,6 +41,8 @@ O SEO do preview continua afetado intencionalmente por `noindex, nofollow`; não
 
 Após a revisão de tipografia e GSAP, Lighthouse mobile local em 14/10/2026 às 20:21 UTC: desempenho 89, acessibilidade 100, boas práticas 100, LCP 3,6 s e CLS 0 (`lighthouse-motion-mobile.json`). O desempenho caiu três pontos em relação à revisão anterior, associado à nova composição do H1 e carga de movimento. O GSAP foi adiado para depois do carregamento inicial; a auditoria automatizada de contraste voltou a 100 ao manter opacidade integral dos textos. A meta aspiracional de desempenho 90 ficou a um ponto nesta medição local.
 
+O `/impeccable init` registrou o contexto confirmado em `PRODUCT.md` e a preferência por evolução direta no código em `.impeccable/config.json`. O detector manual apontou dois avisos genéricos de fonte superutilizada para `Instrument Sans`; a fonte foi mantida porque faz parte da identidade Biosenz documentada. O passe de acabamento alinhou tracking do H1 e os estados nativos do navegador à paleta.
+
 ## Limites e pendências
 
 - Webhook definitivo não configurado. Captação real depende de um envio recebido no destino final; sucesso controlado local não confirma integração de produção.

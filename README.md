@@ -48,7 +48,7 @@ Um timeout pode ocorrer depois de o destino aceitar o lead; a integração defin
 - Depoimentos: ocultos por padrão; publicar apenas registros reais aprovados com imagem autorizada.
 - Marca e capturas oficiais da demonstração pública: public/brand e public/demo.
 - Fontes self-hosted e licenças: public/fonts.
-- Direção: DESIGN.md. Proveniência da marca/demo/fontes: docs/assets.md. Foto de consulta: docs/human-assets.md. Vídeo anatômico: docs/motion-assets.md. Componentes: docs/third-party.md.
+- Contexto durável do produto: PRODUCT.md (Impeccable). Direção: DESIGN.md. Proveniência da marca/demo/fontes: docs/assets.md. Foto de consulta: docs/human-assets.md. Vídeo anatômico: docs/motion-assets.md. Componentes: docs/third-party.md.
 - Planejamento interno fica em .planning e é ignorado pelo Git; documentos privados nunca são publicados.
 
 ## Estado de entrega
