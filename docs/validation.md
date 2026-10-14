@@ -25,18 +25,18 @@ Verificações realizadas em 14/10/2026, Windows, Node 24.16.0 e Chrome 154. O p
 
 ## Desempenho local
 
-Lighthouse 13.5.0, navegação mobile com throttling simulado, build local servido em `127.0.0.1:4324`, medição em 14/10/2026 às 19:59 UTC:
+Lighthouse 13.5.0, navegação mobile com throttling simulado, build local servido em `127.0.0.1:4321`, medição após os novos botões em 14/10/2026 às 20:10 UTC:
 
 | Métrica | Resultado |
 | --- | ---: |
-| Performance | 91 |
+| Performance | 92 |
 | Acessibilidade | 100 |
 | Boas práticas | 100 |
 | SEO | 63 |
 | Largest Contentful Paint | 3,3 s |
 | Cumulative Layout Shift | 0 |
 
-O SEO é afetado intencionalmente por `noindex, nofollow` no preview. A medição antecede apenas a correção de contraste dos números das abas; não houve mudança de assets, carregamento ou layout depois dela. Resultados de laboratório não representam métricas de usuários reais. Hospedagem, compressão, cache e rede definitivos ainda não foram medidos.
+O SEO do preview continua afetado intencionalmente por `noindex, nofollow`; não foi reavaliado nesta medição focada em desempenho, acessibilidade e boas práticas. Os controles Liquid Glass foram conferidos em 1440 e 390 px: luz curta em hover/foco, foco visível, sem overflow ou erro JavaScript. Em movimento reduzido, brilho e deslocamento ficam desativados. Três cenários Playwright direcionados (teclado mobile e axe AA em 390/1440 px) passaram após essa revisão. Resultados de laboratório não representam métricas de usuários reais. Hospedagem, compressão, cache e rede definitivos ainda não foram medidos.
 
 ## Limites e pendências
 

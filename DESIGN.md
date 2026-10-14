@@ -6,14 +6,14 @@ Público: médicos integrativos. Conversão: solicitar demonstração. Preservar
 
 Crimson Pro variável para títulos; Instrument Sans para interface e leitura. Fontes locais OFL. H1 46–68 px, H2 37–57 px, corpo 16–17 px. Leitura em colunas de aproximadamente 50–65 caracteres.
 
-| Token | Valor |
-| --- | --- |
-| Títulos | #1A3C2A |
-| Ação principal | #1E6B45 |
-| Fundo | #FAFAFA |
-| Superfície | #FFFFFF |
+| Token            | Valor   |
+| ---------------- | ------- |
+| Títulos          | #1A3C2A |
+| Ação principal   | #1E6B45 |
+| Fundo            | #FAFAFA |
+| Superfície       | #FFFFFF |
 | Superfície suave | #F1F6F2 |
-| Borda | #DCE5DE |
+| Borda            | #DCE5DE |
 
 Ritmo: hero editorial com cena de consulta e notebook com captura oficial, explicação visual de informação conectada, vitrine de três módulos reais, comparação de seis pares, bloco verde de diferenciação com animação anatômica e formulário com sombra suave. O cabeçalho flutuante inclui navegação e CTA; o rodapé organiza navegação, canais oficiais e links legais. Vidro apenas no cabeçalho, com fundo opaco de fallback. Logotipos oficiais.
 
@@ -21,9 +21,11 @@ Da apresentação em biosenz.ai foram adaptados a hélice de DNA discreta no her
 
 ## Motion
 
-Personalidade calma. Feedback de botões em 150 ms; entrada da foto em 600 ms e do notebook em 750 ms. GSAP coordena as entradas e o percurso único de partículas das informações até a Biosenz. SplitText de React Bits atua somente no título da comparação; palavras visuais aria-hidden, título completo acessível e presente antes da hidratação. Nenhuma animação bloqueia rolagem ou oculta conteúdo essencial.
+Personalidade calma. Feedback dos controles entre 200–220 ms, com reflexo curto de 720 ms; entrada da foto em 600 ms e do notebook em 750 ms. GSAP coordena as entradas e o percurso único de partículas das informações até a Biosenz. SplitText de React Bits atua somente no título da comparação; palavras visuais aria-hidden, título completo acessível e presente antes da hidratação. Nenhuma animação bloqueia rolagem ou oculta conteúdo essencial.
 
 O vídeo decorativo de oito segundos usa reprodução nativa silenciosa em loop. Carrega apenas próximo da seção e pausa fora da tela ou com a aba oculta. Um controle de ícone acessível permite interromper e retomar. Não há legendas visíveis de animação ou IA no banner. Reduced motion e economia de dados preservam a imagem estática; reprodução nesse caso exige ação explícita. A imagem de poster também usa carregamento adiado. A hélice de DNA é estática e decorativa.
+
+Os CTAs e controles usam uma adaptação web da referência Liquid Glass: gradientes verdes translúcidos, reflexo interno, desfoque sutil, sombra e brilho curto ao hover/foco. O movimento é acionado pela interação; `prefers-reduced-motion` mantém os controles estáticos. São efeitos CSS, sem APIs nativas do macOS.
 
 ## Conteúdo e estados
 
