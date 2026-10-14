@@ -1,0 +1,103 @@
+---
+import { copy } from '@/content/landing';
+
+const modules = [
+  {
+    id: 'assistentes',
+    label: 'Assistentes',
+    image: 'biosenz-assistentes.webp',
+    description: 'Exames e informações clínicas no mesmo ambiente.',
+  },
+  {
+    id: 'pacientes',
+    label: 'Pacientes',
+    image: 'biosenz-pacientes.webp',
+    description: 'Histórico e informações organizados por paciente.',
+  },
+  {
+    id: 'consultas',
+    label: 'Consultas',
+    image: 'biosenz-consultas.webp',
+    description: 'Consultas e registros para acompanhar cada atendimento.',
+  },
+];
+---
+
+<div class="product-showcase interactive-showcase">
+  <div class="showcase-top">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span>{copy.product.conclusion}</span>
+    <span class="showcase-note">Demonstração com dados fictícios</span>
+  </div>
+  <div class="showcase-tabs" role="tablist" aria-label="Conheça os módulos da Biosenz" hidden>
+    {modules.map((module, index) => (
+      <button
+        type="button"
+        role="tab"
+        id={`tab-${module.id}`}
+        aria-controls={`panel-${module.id}`}
+        aria-selected={index === 0 ? 'true' : 'false'}
+        tabindex={index === 0 ? 0 : -1}
+      >
+        <span aria-hidden="true">0{index + 1}</span>
+        {module.label}
+      </button>
+    ))}
+  </div>
+  <div class="showcase-panels">
+    {modules.map((module, index) => (
+      <figure id={`panel-${module.id}`} class="showcase-panel" hidden={index !== 0}>
+        <img
+          src={`/demo/${module.image}`}
+          alt={`Módulo ${module.label} na demonstração oficial da Biosenz com dados fictícios.`}
+          width="1440"
+          height="900"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>{module.description}</figcaption>
+      </figure>
+    ))}
+  </div>
+</div>
+<script>
+  const showcase = document.querySelector('.interactive-showcase');
+  if (showcase) {
+    const tablist = showcase.querySelector<HTMLElement>('[role="tablist"]');
+    const tabs = Array.from(showcase.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(showcase.querySelectorAll<HTMLElement>('.showcase-panel'));
+    const select = (index: number, focus = false) => {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+      });
+      if (focus) tabs[index].focus();
+    };
+    panels.forEach((panel, index) => {
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', tabs[index].id);
+      panel.tabIndex = 0;
+    });
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(index));
+      tab.addEventListener('keydown', (event) => {
+        const next =
+          event.key === 'ArrowRight'
+            ? (index + 1) % tabs.length
+            : event.key === 'ArrowLeft'
+              ? (index - 1 + tabs.length) % tabs.length
+              : event.key === 'Home'
+                ? 0
+                : event.key === 'End'
+                  ? tabs.length - 1
+                  : undefined;
+        if (next === undefined) return;
+        event.preventDefault();
+        select(next, true);
+      });
+    });
+    if (tablist) tablist.hidden = false;
+  }
+</script>

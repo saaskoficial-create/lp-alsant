@@ -1,0 +1,21 @@
+---
+const points = Array.from({ length: 41 }, (_, index) => {
+  const y = 20 + index * 17;
+  const wave = Math.sin(index * 0.19) * 125;
+  return { y, left: 180 + wave, right: 180 - wave };
+});
+---
+
+<svg class="helix-motif" viewBox="0 0 360 720" fill="none" aria-hidden="true" focusable="false">
+  <polyline points={points.map((p) => `${p.left},${p.y}`).join(' ')} />
+  <polyline points={points.map((p) => `${p.right},${p.y}`).join(' ')} />
+  {points
+    .filter((_, i) => i % 2 === 0)
+    .map((p) => (
+      <g>
+        <line x1={p.left} x2={p.right} y1={p.y} y2={p.y} />
+        <circle cx={p.left} cy={p.y} r="3" />
+        <circle cx={p.right} cy={p.y} r="3" />
+      </g>
+    ))}
+</svg>

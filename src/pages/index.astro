@@ -1,0 +1,384 @@
+---
+export const prerender = true;
+import '@/styles/global.css';
+import { copy, clinicalInputs, comparison } from '@/content/landing';
+import Header from '@/components/Header.astro';
+import LaptopMockup from '@/components/LaptopMockup.astro';
+import AnatomyMotion from '@/components/AnatomyMotion.astro';
+import ProductShowcase from '@/components/ProductShowcase.astro';
+import HelixMotif from '@/components/HelixMotif.astro';
+import Icon from '@/components/Icon.astro';
+import Testimonials from '@/components/Testimonials.astro';
+import LeadForm from '@/components/LeadForm';
+import SplitHeading from '@/components/SplitHeading';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biosenz | Inteligência artificial para médicos integrativos</title>
+    <meta
+      name="description"
+      content="Analise exames em menos de 3 minutos com apoio de IA. Conheça a Biosenz, desenvolvida para a rotina do médico integrativo, e agende uma demonstração."
+    />
+    <meta name="theme-color" content="#1A3C2A" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta
+      property="og:title"
+      content="Biosenz | Inteligência artificial para médicos integrativos"
+    />
+    <meta property="og:description" content={copy.hero.description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/webp" href="/brand/icon-app-biosenz.webp" />
+    <link
+      rel="preload"
+      href="/fonts/instrument-sans-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/crimson-pro-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">
+      Pular para o conteúdo
+    </a>
+    <Header />
+    <main id="conteudo">
+      <section id="inicio" class="hero container" aria-labelledby="hero-title">
+        <HelixMotif />
+        <div class="hero-copy">
+          <p class="audience">
+            <span aria-hidden="true"></span> Para médicos integrativos
+          </p>
+          <h1 id="hero-title">{copy.hero.title}</h1>
+          <p class="hero-description">{copy.hero.description}</p>
+          <a class="button primary" href="#demonstracao">
+            {copy.hero.cta}
+            <Icon />
+          </a>
+          <p class="hero-support">{copy.hero.support}</p>
+        </div>
+        <figure class="hero-visual human-hero">
+          <div class="consultation-photo">
+            <img
+              src="/media/consultation-1200.webp"
+              srcset="/media/consultation-800.webp 800w, /media/consultation-1200.webp 1200w, /media/consultation.webp 2000w"
+              sizes="(max-width: 768px) 90vw, 45vw"
+              alt="Cena ilustrativa de um profissional de saúde conversando com uma paciente, com atenção voltada a ela."
+              width="2000"
+              height="1333"
+              fetchpriority="high"
+            />
+          </div>
+          <LaptopMockup />
+        </figure>
+      </section>
+      <div class="hero-bottom container">
+        <span>Mais clareza para analisar.</span>
+        <span>Mais atenção para o paciente.</span>
+        <a href="#plataforma">
+          Conheça a plataforma <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <section id="analise" class="problem section" aria-labelledby="problem-title">
+        <div class="container problem-grid">
+          <div class="problem-copy">
+            <h2 id="problem-title">{copy.problem.title}</h2>
+            <p class="section-intro">{copy.problem.intro}</p>
+            {copy.problem.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+            <p class="text-emphasis">{copy.problem.conclusion}</p>
+          </div>
+          <div
+            class="information-map"
+            role="img"
+            aria-label="Exames laboratoriais, sintomas, histórico, evolução, prontuários e protocolos organizados pela Biosenz"
+          >
+            <div class="map-inputs" aria-hidden="true">
+              {clinicalInputs.map((label, i) => (
+                <div class="map-input">
+                  <span class="input-symbol">
+                    {i % 2 === 0 ? (
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.4"
+                      >
+                        <path d="M8 3h8l3 3v15H5V3h3m3 0v5h7M8 12h8M8 16h6" />
+                      </svg>
+                    ) : (
+                      <Icon name="plus" />
+                    )}
+                  </span>
+                  {label}
+                  <span class="input-dot"></span>
+                </div>
+              ))}
+            </div>
+            <div class="map-connector" aria-hidden="true">
+              <svg viewBox="0 0 80 384" preserveAspectRatio="none">
+                {clinicalInputs.map((_, i) => (
+                  <g>
+                    <path
+                      class="data-path"
+                      id={`data-path-${i}`}
+                      d={`M 0 ${27 + i * 66} C 42 ${27 + i * 66}, 32 192, 80 192`}
+                    />
+                    <circle class="data-particle" r="3" cx="0" cy={27 + i * 66} />
+                  </g>
+                ))}
+              </svg>
+            </div>
+            <div class="map-destination" aria-hidden="true">
+              <img src="/brand/icon-app-biosenz.webp" width="64" height="64" alt="" />
+              <strong>Biosenz</strong>
+              <p>
+                Informações conectadas.
+                <br />
+                Uma visão mais organizada.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="plataforma" class="product section container" aria-labelledby="product-title">
+        <div class="product-heading">
+          <div>
+            <p class="section-label">Conheça a Biosenz</p>
+            <h2 id="product-title">{copy.product.title}</h2>
+          </div>
+          <div class="product-explanation">
+            {copy.product.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+            <a href="#demonstracao" class="text-link">
+              Conheça a Biosenz <Icon />
+            </a>
+          </div>
+        </div>
+        <ProductShowcase />
+      </section>
+
+      <section id="rotina" class="comparison-section section" aria-labelledby="comparison-title">
+        <div class="container">
+          <div class="comparison-heading">
+            <p class="section-label">Sem a Biosenz × Com a Biosenz</p>
+            <SplitHeading
+              client:visible
+              text="Veja como muda a sua rotina clínica."
+              id="comparison-title"
+            />
+          </div>
+          <div class="comparison-table">
+            <div class="comparison-header" aria-hidden="true">
+              <span>Na sua rotina</span>
+              <span>Sem a Biosenz</span>
+              <span>
+                <span class="live-dot"></span> Com a Biosenz
+              </span>
+            </div>
+            {comparison.map((item) => (
+              <article class="comparison-row">
+                <h3>{item.title}</h3>
+                <p class="without">
+                  <span class="mobile-comparison-label">Sem a Biosenz</span>
+                  {item.without}
+                </p>
+                <p class="with">
+                  <span class="mobile-comparison-label">Com a Biosenz</span>
+                  <span class="with-copy">
+                    <Icon name="check" />
+                    {item.with}
+                  </span>
+                </p>
+              </article>
+            ))}
+          </div>
+          <div class="comparison-cta">
+            <a href="#demonstracao" class="button primary">
+              Quero ver a Biosenz funcionando <Icon />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="difference section has-anatomy" aria-labelledby="difference-title">
+        <AnatomyMotion />
+        <div class="container difference-grid">
+          <div>
+            <p class="difference-intro">{copy.difference.intro}</p>
+            <h2 id="difference-title">{copy.difference.title}</h2>
+            <img
+              class="difference-mark"
+              src="/brand/icologo-biosenz_white.webp"
+              alt=""
+              width="110"
+              height="110"
+              loading="lazy"
+            />
+          </div>
+          <div class="difference-copy">
+            {copy.difference.paragraphs.map((p, i) => (
+              <p class:list={{ 'difference-key': i === 1 }}>{p}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+      <Testimonials />
+      <section
+        id="demonstracao"
+        class="conversion section container"
+        aria-labelledby="conversion-title"
+      >
+        <div class="conversion-copy">
+          <p class="section-label">Conheça na prática</p>
+          <h2 id="conversion-title">{copy.final.title}</h2>
+          <p>{copy.final.description}</p>
+          <div class="conversion-note">
+            <span class="note-line"></span>
+            <p>Agende uma demonstração e veja a plataforma funcionando na prática.</p>
+          </div>
+        </div>
+        <div class="form-panel">
+          <h3>Agende uma demonstração</h3>
+          <p class="form-intro">
+            Preencha seus dados abaixo e nosso time entrará em contato para apresentar a plataforma.
+          </p>
+          <LeadForm client:visible />
+          <noscript>
+            <p class="noscript-note">
+              Ative o JavaScript no navegador para preencher e enviar o formulário.
+            </p>
+          </noscript>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#inicio" aria-label="Biosenz — início">
+            <img
+              src="/brand/logotipo-biosenz.webp"
+              alt="Biosenz"
+              width="160"
+              height="34"
+              loading="lazy"
+            />
+          </a>
+          <p>Inteligência artificial para a rotina do médico integrativo.</p>
+          <span>
+            Mais clareza para analisar.
+            <br />
+            Mais atenção para o paciente.
+          </span>
+        </div>
+        <nav aria-label="Explore a página">
+          <h3>Explore</h3>
+          <a href="#analise">Como funciona</a>
+          <a href="#plataforma">A plataforma</a>
+          <a href="#rotina">Na sua rotina</a>
+          <a href="#demonstracao">Agende uma demonstração</a>
+        </nav>
+        <nav aria-label="Canais oficiais">
+          <h3>Biosenz</h3>
+          <a href="https://biosenz.ai/">
+            Site oficial <span aria-hidden="true">↗</span>
+          </a>
+          <a href="https://instagram.com/biosenz">
+            Instagram <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+        <nav aria-label="Informações legais">
+          <h3>Informações</h3>
+          <a href="https://biosenz.ai/privacy">Política de Privacidade</a>
+          <a href="https://biosenz.ai/terms">Termos de uso</a>
+        </nav>
+      </div>
+      <div class="container footer-bottom">
+        <p>© {new Date().getFullYear()} Biosenz. Todos os direitos reservados.</p>
+        <a href="#inicio">
+          Voltar ao topo <span aria-hidden="true">↑</span>
+        </a>
+      </div>
+    </footer>
+    <script>
+      import { gsap } from 'gsap';
+      import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+      gsap.registerPlugin(MotionPathPlugin);
+      const media = gsap.matchMedia();
+      media.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap
+          .timeline({ defaults: { ease: 'power3.out' } })
+          .from('.consultation-photo', { y: 12, duration: 0.6, clearProps: 'transform' })
+          .from(
+            '.laptop-mockup',
+            { y: 28, rotation: 1.2, duration: 0.75, clearProps: 'transform' },
+            0.12,
+          );
+        const map = document.querySelector('.information-map');
+        const timelines: gsap.core.Timeline[] = [];
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if (!entries.some((e) => e.isIntersecting)) return;
+            const sequence = gsap.timeline();
+            sequence.fromTo(
+              '.map-input',
+              { x: -8 },
+              { x: 0, stagger: 0.055, duration: 0.35, ease: 'power2.out', clearProps: 'transform' },
+            );
+            document
+              .querySelectorAll<SVGCircleElement>('.data-particle')
+              .forEach((particle, index) => {
+                sequence
+                  .to(particle, { opacity: 1, duration: 0.1 }, 0.2 + index * 0.12)
+                  .to(
+                    particle,
+                    {
+                      motionPath: {
+                        path: `#data-path-${index}`,
+                        align: `#data-path-${index}`,
+                        alignOrigin: [0.5, 0.5],
+                      },
+                      duration: 0.85,
+                      ease: 'power1.inOut',
+                    },
+                    0.25 + index * 0.12,
+                  )
+                  .to(particle, { opacity: 0, duration: 0.15 }, 1.1 + index * 0.12);
+              });
+            sequence.from(
+              '.map-destination img',
+              { scale: 0.91, duration: 0.45, ease: 'power2.out', clearProps: 'transform' },
+              1.05,
+            );
+            timelines.push(sequence);
+            observer.disconnect();
+          },
+          { threshold: 0.35 },
+        );
+        if (map) observer.observe(map);
+        return () => {
+          observer.disconnect();
+          timelines.forEach((timeline) => timeline.revert());
+        };
+      });
+      window.addEventListener('pagehide', () => media.revert(), { once: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+node_modules
+dist
+.astro
+.planning
+work
+public
+test-results
+playwright-report
+package-lock.json

@@ -1,0 +1,66 @@
+---
+import Icon from './Icon.astro';
+---
+
+<header class="site-header">
+  <a href="#inicio" class="brand" aria-label="Biosenz — início">
+    <img
+      src="/brand/logotipo-biosenz.webp"
+      alt="Biosenz"
+      width="160"
+      height="48"
+      fetchpriority="high"
+    />
+  </a>
+  <nav class="desktop-nav" aria-label="Navegação principal">
+    <a href="#analise">Como funciona</a>
+    <a href="#plataforma">A plataforma</a>
+    <a href="#rotina">Na sua rotina</a>
+  </nav>
+  <a class="header-cta" href="#demonstracao">
+    Agende uma demonstração <Icon />
+  </a>
+  <button
+    class="menu-toggle"
+    aria-label="Abrir menu"
+    aria-controls="mobile-menu"
+    aria-expanded="false"
+  >
+    <Icon name="menu" />
+  </button>
+  <nav id="mobile-menu" class="mobile-nav" aria-label="Navegação mobile" hidden>
+    <a href="#analise">Como funciona</a>
+    <a href="#plataforma">A plataforma</a>
+    <a href="#rotina">Na sua rotina</a>
+    <a href="#demonstracao">Agende uma demonstração</a>
+  </nav>
+</header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.querySelector<HTMLElement>('#mobile-menu');
+  const close = () => {
+    if (menu && toggle) {
+      menu.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menu');
+    }
+  };
+  toggle?.addEventListener('click', () => {
+    if (!menu) return;
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    menu.hidden = expanded;
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    toggle.setAttribute('aria-label', expanded ? 'Abrir menu' : 'Fechar menu');
+  });
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      close();
+      toggle.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target instanceof Element && e.target.closest('.site-header'))) close();
+  });
+  window.matchMedia('(min-width: 769px)').addEventListener('change', close);
+</script>

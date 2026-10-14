@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.planning/
+work/
+test-results/
+playwright-report/
+*.log
+.DS_Store

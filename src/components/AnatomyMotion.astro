@@ -1,0 +1,109 @@
+<div class="anatomy-motion">
+  <img
+    class="anatomy-poster"
+    src="/media/biosenz-anatomy-poster.webp"
+    alt=""
+    aria-hidden="true"
+    width="1280"
+    height="720"
+    loading="lazy"
+    decoding="async"
+  />
+  <video
+    id="anatomy-film"
+    class="anatomy-video"
+    data-source="/media/biosenz-anatomy.mp4"
+    preload="none"
+    muted
+    playsinline
+    loop
+    aria-hidden="true"
+    width="1280"
+    height="720"
+  ></video>
+  <div class="motion-footer">
+    <button
+      type="button"
+      class="motion-control"
+      aria-controls="anatomy-film"
+      aria-label="Reproduzir vídeo"
+      hidden
+    >
+      <svg
+        viewBox="0 0 20 20"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"
+      >
+        <path class="pause-symbol" d="M7 4v12M13 4v12" />
+        <path class="play-symbol" d="m6 4 10 6-10 6Z" />
+      </svg>
+    </button>
+  </div>
+</div>
+<script>
+  const video = document.querySelector<HTMLVideoElement>('#anatomy-film');
+  const control = document.querySelector<HTMLButtonElement>('.motion-control');
+  if (video && control) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection;
+    let userPaused = reduced.matches || !!connection?.saveData;
+    let isVisible = false;
+    const syncControl = () => {
+      control.setAttribute('aria-label', video.paused ? 'Reproduzir vídeo' : 'Pausar vídeo');
+      control.classList.toggle('is-playing', !video.paused);
+    };
+    const play = async () => {
+      if (!video.src && video.dataset.source) video.src = video.dataset.source;
+      try {
+        await video.play();
+      } catch {
+        syncControl();
+      }
+    };
+    control.hidden = false;
+    control.addEventListener('click', () => {
+      userPaused = !video.paused;
+      if (userPaused) video.pause();
+      else void play();
+    });
+    video.addEventListener('play', syncControl);
+    video.addEventListener('pause', syncControl);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries.some((entry) => entry.isIntersecting);
+        if (isVisible && !userPaused) void play();
+        else video.pause();
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(video);
+    const onPreference = () => {
+      if (reduced.matches) {
+        userPaused = true;
+        video.pause();
+      }
+    };
+    const onVisibility = () => {
+      if (document.hidden) video.pause();
+      else if (isVisible && !userPaused) void play();
+    };
+    reduced.addEventListener('change', onPreference);
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener(
+      'pagehide',
+      () => {
+        video.pause();
+        observer.disconnect();
+        reduced.removeEventListener('change', onPreference);
+        document.removeEventListener('visibilitychange', onVisibility);
+      },
+      { once: true },
+    );
+    syncControl();
+  }
+</script>
