@@ -171,6 +171,31 @@ for (const width of [360, 390, 768, 1440]) {
   });
 }
 
+test('mobile CTA follows the middle sections and leaves the form unobstructed', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const sticky = page.locator('.mobile-sticky-cta');
+  await expect(sticky).toBeHidden();
+  await page.evaluate(() =>
+    window.scrollTo(
+      0,
+      document.querySelector('#plataforma')!.getBoundingClientRect().top + window.scrollY + 220,
+    ),
+  );
+  await expect(sticky).toBeVisible();
+  await expect(sticky.getByRole('link')).toHaveAttribute('href', '#demonstracao');
+  await sticky.getByRole('link').click();
+  await expect(page).toHaveURL(/#demonstracao$/);
+  await expect(sticky).toBeHidden();
+  await expect(page.locator('.form-panel')).toBeVisible();
+  const formBackground = await page
+    .locator('.form-panel')
+    .evaluate((element) => getComputedStyle(element).backgroundImage);
+  expect(formBackground).toContain('gradient');
+});
+
 test('mobile navigation and conversion controls work with the keyboard', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -246,7 +271,9 @@ function observeMotionResources(page: Page) {
   return { videoRequests, failures };
 }
 
-test('product modules show the selected real screenshot and support arrow, Home, End and Tab navigation', async ({ page }) => {
+test('product modules show the selected real screenshot and support arrow, Home, End and Tab navigation', async ({
+  page,
+}) => {
   const resources = observeMotionResources(page);
   await page.goto('/#plataforma');
   const tabs = page.getByRole('tablist', { name: 'Conheça os módulos da Biosenz' });
@@ -274,15 +301,22 @@ test('product modules show the selected real screenshot and support arrow, Home,
     const screenshot = panel.getByRole('img');
     await expect(screenshot).toHaveAttribute('src', `/demo/${module.image}`);
     await expect(screenshot).toHaveAttribute(
-      'alt', `Módulo ${module.label} na demonstração oficial da Biosenz com dados fictícios.`,
+      'alt',
+      `Módulo ${module.label} na demonstração oficial da Biosenz com dados fictícios.`,
     );
-    await expect.poll(() => screenshot.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0))
+    await expect
+      .poll(() =>
+        screenshot.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0),
+      )
       .toBe(true);
   }
 
   for (const [key, selected] of [
-    ['ArrowRight', 'Assistentes'], ['ArrowLeft', 'Consultas'], ['Home', 'Assistentes'],
-    ['End', 'Consultas'], ['ArrowLeft', 'Pacientes'],
+    ['ArrowRight', 'Assistentes'],
+    ['ArrowLeft', 'Consultas'],
+    ['Home', 'Assistentes'],
+    ['End', 'Consultas'],
+    ['ArrowLeft', 'Pacientes'],
   ]) {
     await page.keyboard.press(key);
     await expectSelection(selected);
@@ -294,7 +328,9 @@ test('product modules show the selected real screenshot and support arrow, Home,
   expect(resources.failures).toEqual([]);
 });
 
-test('motion video is deferred below the hero, plays on entry, honors pause and pauses on exit', async ({ page }) => {
+test('motion video is deferred below the hero, plays on entry, honors pause and pauses on exit', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   const resources = observeMotionResources(page);
@@ -308,21 +344,27 @@ test('motion video is deferred below the hero, plays on entry, honors pause and 
 
   await page.locator('#difference-title').scrollIntoViewIfNeeded();
   await expect(video).toHaveAttribute('src', '/media/biosenz-anatomy.mp4');
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.currentTime)).toBeGreaterThan(0);
+  await expect
+    .poll(() => video.evaluate((element: HTMLVideoElement) => element.currentTime))
+    .toBeGreaterThan(0);
   await expect(control).toHaveAccessibleName('Pausar vídeo');
   expect(await video.evaluate((element: HTMLVideoElement) => element.muted)).toBe(true);
   await control.click();
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true);
   await expect(control).toHaveAccessibleName('Reproduzir vídeo');
   await control.click();
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(false);
+  await expect
+    .poll(() => video.evaluate((element: HTMLVideoElement) => element.paused))
+    .toBe(false);
   await page.locator('#hero-title').scrollIntoViewIfNeeded();
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true);
   expect(resources.videoRequests.length).toBeGreaterThan(0);
   expect(resources.failures).toEqual([]);
 });
 
-test('reduced motion keeps the poster without downloading video until an explicit play click', async ({ page }) => {
+test('reduced motion keeps the poster without downloading video until an explicit play click', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const resources = observeMotionResources(page);
@@ -334,7 +376,10 @@ test('reduced motion keeps the poster without downloading video until an explici
   const poster = page.locator('.anatomy-poster');
   await expect(poster).toBeVisible();
   await expect(poster).toHaveAttribute('src', '/media/biosenz-anatomy-poster.webp');
-  await expect.poll(() => poster.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0))
+  await expect
+    .poll(() =>
+      poster.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0),
+    )
     .toBe(true);
   await expect(video).not.toHaveAttribute('src', /.+/);
   await expect(control).toHaveAccessibleName('Reproduzir vídeo');
@@ -343,7 +388,9 @@ test('reduced motion keeps the poster without downloading video until an explici
 
   await control.click();
   await expect(video).toHaveAttribute('src', '/media/biosenz-anatomy.mp4');
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.currentTime)).toBeGreaterThan(0);
+  await expect
+    .poll(() => video.evaluate((element: HTMLVideoElement) => element.currentTime))
+    .toBeGreaterThan(0);
   await expect(control).toHaveAccessibleName('Pausar vídeo');
   expect(resources.videoRequests.length).toBeGreaterThan(0);
   await control.click();

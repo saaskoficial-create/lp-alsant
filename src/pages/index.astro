@@ -11,6 +11,7 @@ import Icon from '@/components/Icon.astro';
 import Testimonials from '@/components/Testimonials.astro';
 import LeadForm from '@/components/LeadForm';
 import SplitHeading from '@/components/SplitHeading';
+const heroTitleParts = copy.hero.title.split(/(analise exames|menos de 3 minutos)/);
 ---
 
 <!doctype html>
@@ -60,7 +61,17 @@ import SplitHeading from '@/components/SplitHeading';
           <p class="audience">
             <span aria-hidden="true"></span> Para médicos integrativos
           </p>
-          <h1 id="hero-title">{copy.hero.title}</h1>
+          <h1 id="hero-title">
+            {heroTitleParts.map((part) =>
+              part === 'analise exames' ? (
+                <span class="hero-ink">{part}</span>
+              ) : part === 'menos de 3 minutos' ? (
+                <span class="hero-metal">{part}</span>
+              ) : (
+                part
+              ),
+            )}
+          </h1>
           <p class="hero-description">{copy.hero.description}</p>
           <a class="button primary" href="#demonstracao">
             {copy.hero.cta}
@@ -92,6 +103,9 @@ import SplitHeading from '@/components/SplitHeading';
       </div>
 
       <section id="analise" class="problem section" aria-labelledby="problem-title">
+        <div class="ambient-helix" aria-hidden="true">
+          <HelixMotif />
+        </div>
         <div class="container problem-grid">
           <div class="problem-copy">
             <h2 id="problem-title">{copy.problem.title}</h2>
@@ -158,6 +172,9 @@ import SplitHeading from '@/components/SplitHeading';
       </section>
 
       <section id="plataforma" class="product section container" aria-labelledby="product-title">
+        <div class="ambient-helix" aria-hidden="true">
+          <HelixMotif />
+        </div>
         <div class="product-heading">
           <div>
             <p class="section-label">Conheça a Biosenz</p>
@@ -176,6 +193,9 @@ import SplitHeading from '@/components/SplitHeading';
       </section>
 
       <section id="rotina" class="comparison-section section" aria-labelledby="comparison-title">
+        <div class="ambient-helix" aria-hidden="true">
+          <HelixMotif />
+        </div>
         <div class="container">
           <div class="comparison-heading">
             <p class="section-label">Sem a Biosenz × Com a Biosenz</p>
@@ -246,6 +266,9 @@ import SplitHeading from '@/components/SplitHeading';
         class="conversion section container"
         aria-labelledby="conversion-title"
       >
+        <div class="ambient-helix" aria-hidden="true">
+          <HelixMotif />
+        </div>
         <div class="conversion-copy">
           <p class="section-label">Conheça na prática</p>
           <h2 id="conversion-title">{copy.final.title}</h2>
@@ -269,6 +292,11 @@ import SplitHeading from '@/components/SplitHeading';
         </div>
       </section>
     </main>
+    <div class="mobile-sticky-cta" aria-hidden="true">
+      <a href="#demonstracao" tabindex="-1">
+        Agende uma demonstração <Icon />
+      </a>
+    </div>
     <footer class="site-footer">
       <div class="container footer-main">
         <div class="footer-brand">
@@ -318,67 +346,158 @@ import SplitHeading from '@/components/SplitHeading';
       </div>
     </footer>
     <script>
-      import { gsap } from 'gsap';
-      import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-      gsap.registerPlugin(MotionPathPlugin);
-      const media = gsap.matchMedia();
-      media.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap
-          .timeline({ defaults: { ease: 'power3.out' } })
-          .from('.consultation-photo', { y: 12, duration: 0.6, clearProps: 'transform' })
-          .from(
-            '.laptop-mockup',
-            { y: 28, rotation: 1.2, duration: 0.75, clearProps: 'transform' },
-            0.12,
-          );
-        const map = document.querySelector('.information-map');
-        const timelines: gsap.core.Timeline[] = [];
-        const observer = new IntersectionObserver(
-          (entries) => {
-            if (!entries.some((e) => e.isIntersecting)) return;
-            const sequence = gsap.timeline();
-            sequence.fromTo(
-              '.map-input',
-              { x: -8 },
-              { x: 0, stagger: 0.055, duration: 0.35, ease: 'power2.out', clearProps: 'transform' },
-            );
-            document
-              .querySelectorAll<SVGCircleElement>('.data-particle')
-              .forEach((particle, index) => {
-                sequence
-                  .to(particle, { opacity: 1, duration: 0.1 }, 0.2 + index * 0.12)
-                  .to(
-                    particle,
-                    {
-                      motionPath: {
-                        path: `#data-path-${index}`,
-                        align: `#data-path-${index}`,
-                        alignOrigin: [0.5, 0.5],
-                      },
-                      duration: 0.85,
-                      ease: 'power1.inOut',
-                    },
-                    0.25 + index * 0.12,
-                  )
-                  .to(particle, { opacity: 0, duration: 0.15 }, 1.1 + index * 0.12);
-              });
-            sequence.from(
-              '.map-destination img',
-              { scale: 0.91, duration: 0.45, ease: 'power2.out', clearProps: 'transform' },
-              1.05,
-            );
-            timelines.push(sequence);
-            observer.disconnect();
-          },
-          { threshold: 0.35 },
-        );
-        if (map) observer.observe(map);
-        return () => {
-          observer.disconnect();
-          timelines.forEach((timeline) => timeline.revert());
+      const initMotion = async () => {
+        const [{ gsap }, { MotionPathPlugin }, { ScrollTrigger }] = await Promise.all([
+          import('gsap'),
+          import('gsap/MotionPathPlugin'),
+          import('gsap/ScrollTrigger'),
+        ]);
+        gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
+        const sticky = document.querySelector<HTMLElement>('.mobile-sticky-cta');
+        const toggleSticky = (visible: boolean) => {
+          if (!sticky) return;
+          sticky.classList.toggle('is-visible', visible);
+          sticky.setAttribute('aria-hidden', String(!visible));
+          sticky.querySelector('a')?.setAttribute('tabindex', visible ? '0' : '-1');
         };
-      });
-      window.addEventListener('pagehide', () => media.revert(), { once: true });
+        const stickyTrigger = ScrollTrigger.create({
+          trigger: '#analise',
+          start: 'bottom top',
+          endTrigger: '#demonstracao',
+          end: 'top bottom',
+          onEnter: () => toggleSticky(true),
+          onLeave: () => toggleSticky(false),
+          onEnterBack: () => toggleSticky(true),
+          onLeaveBack: () => toggleSticky(false),
+        });
+        window.addEventListener('pagehide', () => stickyTrigger.kill(), { once: true });
+        const media = gsap.matchMedia();
+        media.add('(prefers-reduced-motion: no-preference)', () => {
+          gsap
+            .timeline({ defaults: { ease: 'power3.out' } })
+            .from('.consultation-photo', { y: 12, duration: 0.6, clearProps: 'transform' })
+            .from(
+              '.laptop-mockup',
+              { y: 28, rotation: 1.2, duration: 0.75, clearProps: 'transform' },
+              0.12,
+            );
+          document.querySelectorAll<SVGSVGElement>('.helix-motif').forEach((helix, index) => {
+            const drift = gsap.to(helix, {
+              y: index % 2 ? 18 : -18,
+              rotation: index % 2 ? 3 : -3,
+              duration: 7 + index * 1.3,
+              ease: 'sine.inOut',
+              repeat: -1,
+              yoyo: true,
+              paused: true,
+            });
+            ScrollTrigger.create({
+              trigger: helix.closest('section') ?? helix,
+              start: 'top bottom',
+              end: 'bottom top',
+              onToggle: (self) => (self.isActive ? drift.play() : drift.pause()),
+            });
+          });
+          const revealTargets = [
+            '.problem-copy h2',
+            '.problem-copy p',
+            '.information-map',
+            '.product-heading > div',
+            '.product-showcase',
+            '.comparison-heading',
+            '.comparison-row',
+            '.comparison-cta',
+            '.difference-intro',
+            '.difference h2',
+            '.difference-copy p',
+            '.conversion-copy > *',
+            '.form-panel',
+          ];
+          document.querySelectorAll<HTMLElement>(revealTargets.join(',')).forEach((element) => {
+            gsap.fromTo(
+              element,
+              { y: 16 },
+              {
+                y: 0,
+                ease: 'none',
+                scrollTrigger: { trigger: element, start: 'top 96%', end: 'top 68%', scrub: 0.55 },
+              },
+            );
+            gsap.to(element, {
+              y: -7,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: element,
+                start: 'bottom 32%',
+                end: 'bottom 8%',
+                scrub: 0.55,
+              },
+            });
+          });
+          const map = document.querySelector('.information-map');
+          const timelines: ReturnType<typeof gsap.timeline>[] = [];
+          const observer = new IntersectionObserver(
+            (entries) => {
+              if (!entries.some((e) => e.isIntersecting)) return;
+              const sequence = gsap.timeline();
+              sequence.fromTo(
+                '.map-input',
+                { x: -8 },
+                {
+                  x: 0,
+                  stagger: 0.055,
+                  duration: 0.35,
+                  ease: 'power2.out',
+                  clearProps: 'transform',
+                },
+              );
+              document
+                .querySelectorAll<SVGCircleElement>('.data-particle')
+                .forEach((particle, index) => {
+                  sequence
+                    .to(particle, { opacity: 1, duration: 0.1 }, 0.2 + index * 0.12)
+                    .to(
+                      particle,
+                      {
+                        motionPath: {
+                          path: `#data-path-${index}`,
+                          align: `#data-path-${index}`,
+                          alignOrigin: [0.5, 0.5],
+                        },
+                        duration: 0.85,
+                        ease: 'power1.inOut',
+                      },
+                      0.25 + index * 0.12,
+                    )
+                    .to(particle, { opacity: 0, duration: 0.15 }, 1.1 + index * 0.12);
+                });
+              sequence.from(
+                '.map-destination img',
+                { scale: 0.91, duration: 0.45, ease: 'power2.out', clearProps: 'transform' },
+                1.05,
+              );
+              timelines.push(sequence);
+              observer.disconnect();
+            },
+            { threshold: 0.35 },
+          );
+          if (map) observer.observe(map);
+          return () => {
+            observer.disconnect();
+            timelines.forEach((timeline) => timeline.revert());
+          };
+        });
+        window.addEventListener('pagehide', () => media.revert(), { once: true });
+      };
+      const scheduleMotion = () => {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(() => void initMotion(), { timeout: 1800 });
+        } else {
+          setTimeout(() => void initMotion(), 350);
+        }
+      };
+      if (document.readyState === 'complete') scheduleMotion();
+      else window.addEventListener('load', scheduleMotion, { once: true });
     </script>
   </body>
 </html>
