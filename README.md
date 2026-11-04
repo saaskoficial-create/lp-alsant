@@ -26,6 +26,10 @@ Playwright usa receptores locais controlados e portas próprias. Os dados de tes
 
 ## Produção / webhook
 
+Na Vercel, o build usa `@astrojs/vercel` quando `VERCEL` está definido; a rota `/api/leads` roda como função. O projeto é `biosenz-alsant`, na equipe `custodiorods-projects`. Configure `LEAD_WEBHOOK_URL` no ambiente da Vercel para habilitar a entrega de leads. Sem essa configuração, o formulário informa indisponibilidade e não confirma um envio.
+
+Fora da Vercel, o adaptador Node standalone é mantido para desenvolvimento e testes.
+
 Build Node standalone: a página principal é pré-renderizada; POST /api/leads precisa de um servidor Node ativo. Hospedar só dist/client não permite captar leads.
 
 ```sh
