@@ -57,7 +57,9 @@ Um timeout pode ocorrer depois de o destino aceitar o lead; a integração defin
 
 ## Estado de entrega
 
-Preview local e repositório são a entrega inicial. Hospedagem e domínio não foram definidos. A página usa noindex no preview; ao publicar no domínio definitivo, remover noindex e configurar canonical/og:url/og:image absolutos. Metadados de título e descrição já estão presentes.
+Página publicada em https://biosenz-alsant.vercel.app na Vercel. O domínio definitivo ainda não foi definido. A página mantém noindex no endereço provisório; ao publicar no domínio definitivo, remover noindex e configurar canonical/og:url/og:image absolutos. Metadados de título e descrição já estão presentes.
+
+A VSL legendada aparece em `#video`, após a abertura. Arquivo-fonte: `VSL-Biosenz-legendada.mp4`, exportado em 16/10/2026. A cópia em `public/media/biosenz-vsl.mp4` mantém 1920×1080, áudio e legendas gravadas na imagem, com compressão H.264/AAC e faststart. O player usa controles nativos e `preload="none"`.
 
 Pendências externas: LEAD_WEBHOOK_URL definitivo e um envio recebido; dois ou três depoimentos aprovados; reconexão21st MCP, se ainda desejada. O MCP disponível retornou401 e nenhum código dele foi incorporado. Não há analytics ou conversão instalada.
 

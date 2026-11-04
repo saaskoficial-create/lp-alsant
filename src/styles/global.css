@@ -133,6 +133,22 @@ select:focus-visible {
 .section {
   padding-block: 112px;
 }
+.vsl-section {
+  padding-top: 64px;
+  max-width: 1040px;
+}
+.vsl-section h2 {
+  margin-bottom: 28px;
+  text-align: center;
+}
+.vsl-player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #1a3c2a;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px #1a3c2a18;
+}
 .section-label {
   font-size: 15px;
   color: #4c6555;
