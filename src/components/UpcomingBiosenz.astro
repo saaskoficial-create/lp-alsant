@@ -31,19 +31,6 @@ const features = [
       'A próxima versão terá reagendamento por arraste e uma visão mensal dos valores recebidos, despesas pagas, contas a receber e contas a pagar.',
   },
 ];
-
-const questions = [
-  {
-    question: 'Quando as novidades estarão disponíveis?',
-    answer:
-      'O Biosenz 2.0 está por vir. A data de lançamento e a disponibilidade dos recursos ainda serão confirmadas pela equipe Biosenz.',
-  },
-  {
-    question: 'Quais planos terão acesso ao Biosenz 2.0?',
-    answer:
-      'Os planos contemplados e as condições de acesso serão confirmados pela equipe Biosenz. As novidades desta página não indicam disponibilidade nos planos atuais.',
-  },
-];
 ---
 
 <section id="biosenz-2-0" class="upcoming section" aria-labelledby="biosenz-2-0-title">
@@ -60,69 +47,24 @@ const questions = [
       </p>
     </header>
 
-    <div class="upcoming-layout">
-      <div class="upcoming-features">
-        <p class="upcoming-instruction">Explore o que está por vir</p>
-        <div class="upcoming-feature-list">
-          {features.map((feature, index) => (
-            <details class="upcoming-feature" open={index === 0}>
-              <summary>
-                <span class="feature-number" aria-hidden="true">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span class="feature-heading">
-                  <span class="feature-title">{feature.title}</span>
-                  <span class="feature-summary">{feature.summary}</span>
-                </span>
-                <span class="feature-toggle" aria-hidden="true" />
-              </summary>
-              <div class="feature-description">
-                <p>{feature.description}</p>
-              </div>
-            </details>
-          ))}
-        </div>
-        <p id="biosenz-2-0-note" class="upcoming-availability">
-          Recursos anunciados. Disponibilidade e condições de acesso a confirmar pela Biosenz.
-        </p>
-      </div>
-
-      <figure class="upcoming-preview">
-        <div class="preview-frame">
-          <video
-            controls
-            playsinline
-            preload="none"
-            width="720"
-            height="1280"
-            poster="/media/biosenz-2-0-poster.webp"
-            aria-label="Prévia em vídeo das novidades anunciadas do Biosenz 2.0, sem áudio"
-            aria-describedby="biosenz-2-0-preview-caption"
-          >
-            <source src="/media/biosenz-2-0-teaser.mp4" type="video/mp4" />
-            Seu navegador não suporta vídeo.
-            <a href="/media/biosenz-2-0-teaser.mp4">Assista à prévia do Biosenz 2.0</a>.
-          </video>
-        </div>
-        <figcaption id="biosenz-2-0-preview-caption">
-          Prévia das novidades anunciadas <span aria-hidden="true">•</span> vídeo sem áudio
-        </figcaption>
-      </figure>
-    </div>
-
-    <div class="upcoming-questions" aria-labelledby="biosenz-2-0-questions-title">
-      <div class="questions-heading">
-        <p class="upcoming-label">Sobre a próxima versão</p>
-        <h3 id="biosenz-2-0-questions-title">Antes de conhecer as novidades</h3>
-      </div>
-      <div class="questions-list">
-        {questions.map((item) => (
-          <details class="upcoming-question">
+    <div class="upcoming-features">
+      <p class="upcoming-instruction">Explore o que está por vir</p>
+      <div class="upcoming-feature-list">
+        {features.map((feature, index) => (
+          <details class="upcoming-feature" open={index === 0}>
             <summary>
-              <span>{item.question}</span>
+              <span class="feature-number" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span class="feature-heading">
+                <span class="feature-title">{feature.title}</span>
+                <span class="feature-summary">{feature.summary}</span>
+              </span>
               <span class="feature-toggle" aria-hidden="true" />
             </summary>
-            <p>{item.answer}</p>
+            <div class="feature-description">
+              <p>{feature.description}</p>
+            </div>
           </details>
         ))}
       </div>
@@ -182,13 +124,6 @@ const questions = [
     margin-top: 22px;
     font-size: 18px;
     line-height: 1.65;
-  }
-
-  .upcoming-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.75fr);
-    align-items: start;
-    gap: clamp(40px, 6.5vw, 104px);
   }
 
   .upcoming-instruction {
@@ -298,106 +233,7 @@ const questions = [
     line-height: 1.75;
   }
 
-  .upcoming-availability {
-    max-width: 57ch;
-    margin-top: 23px;
-    color: var(--muted-foreground);
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .upcoming-preview {
-    position: sticky;
-    top: 128px;
-    width: min(100%, 330px);
-    margin-inline: auto;
-    padding-top: 8px;
-  }
-
-  .preview-frame {
-    overflow: hidden;
-    background: #162d22;
-    border: 1px solid #c8d9ce;
-    border-radius: 18px;
-    box-shadow: 0 18px 45px #1a3c2a12;
-  }
-
-  .preview-frame video {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 9 / 16;
-    object-fit: contain;
-  }
-
-  .upcoming-preview figcaption {
-    max-width: 30ch;
-    margin: 16px auto 0;
-    color: var(--muted-foreground);
-    font-size: 12px;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  .upcoming-questions {
-    display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    align-items: start;
-    gap: 56px;
-    margin-top: 76px;
-    padding-top: 40px;
-    border-top: 1px solid #c8d9ce;
-  }
-
-  .questions-heading h3 {
-    max-width: 18ch;
-    margin-top: 10px;
-    color: var(--secondary-foreground);
-    font-family: 'Crimson Pro', Georgia, serif;
-    font-size: 31px;
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    text-wrap: balance;
-  }
-
-  .upcoming-question + .upcoming-question {
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border);
-  }
-
-  .upcoming-question summary {
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    gap: 20px;
-    min-height: 44px;
-    color: var(--secondary-foreground);
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.5;
-  }
-
-  .upcoming-question .feature-toggle {
-    flex: 0 0 22px;
-    margin-top: 0;
-  }
-
-  .upcoming-question p {
-    max-width: 58ch;
-    padding: 0 42px 12px 0;
-    color: var(--muted-foreground);
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
   @media (max-width: 960px) {
-    .upcoming-layout {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr);
-      gap: 36px;
-    }
-
     .upcoming-feature summary {
       grid-template-columns: 22px minmax(0, 1fr) 22px;
       gap: 12px;
@@ -406,10 +242,6 @@ const questions = [
     .feature-description {
       padding-left: 34px;
       padding-right: 25px;
-    }
-
-    .upcoming-questions {
-      gap: 36px;
     }
   }
 
@@ -428,38 +260,12 @@ const questions = [
       font-size: 16px;
     }
 
-    .upcoming-layout,
-    .upcoming-questions {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .upcoming-layout {
-      gap: 36px;
-    }
-
-    .upcoming-preview {
-      position: static;
-      width: min(100%, 300px);
-      padding-top: 0;
-    }
-
     .feature-title {
       font-size: 17px;
     }
 
     .feature-description p {
       font-size: 14px;
-    }
-
-    .upcoming-questions {
-      gap: 24px;
-      margin-top: 48px;
-      padding-top: 30px;
-    }
-
-    .questions-heading h3 {
-      max-width: 24ch;
-      font-size: 29px;
     }
   }
 </style>

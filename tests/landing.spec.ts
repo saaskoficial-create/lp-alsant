@@ -433,68 +433,27 @@ test('reduced motion keeps the poster without downloading video until an explici
   expect(resources.failures).toEqual([]);
 });
 
-test('Biosenz 2.0 is presented as upcoming and its teaser stays unloaded and paused on entry', async ({
+test('Biosenz 2.0 presents five upcoming features without teaser, FAQ or availability note', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.emulateMedia({ reducedMotion: 'no-preference' });
-  const resources = observeMotionResources(page);
   await page.goto('/');
   const upcoming = page.locator('#biosenz-2-0');
-  const teaser = upcoming.locator('video');
-  const teaserRequests = () =>
-    resources.videoRequests.filter((url) =>
-      new URL(url).pathname.endsWith('/biosenz-2-0-teaser.mp4'),
-    );
-
-  expect(teaserRequests()).toEqual([]);
   await upcoming
     .getByRole('heading', { name: 'O que vem no Biosenz 2.0', exact: true })
     .scrollIntoViewIfNeeded();
   await expect(upcoming.getByText('Em breve', { exact: true })).toBeVisible();
-  await expect(upcoming.locator('#biosenz-2-0-note')).toContainText(
-    'Disponibilidade e condições de acesso a confirmar',
-  );
-  await teaser.scrollIntoViewIfNeeded();
-  await expect(teaser).toBeInViewport();
-  await expect(teaser.locator('source')).toHaveAttribute('src', '/media/biosenz-2-0-teaser.mp4');
-  // Let viewport observers run before asserting that entering the section cannot start media.
-  const state = await teaser.evaluate(
-    (video: HTMLVideoElement) =>
-      new Promise((resolve) =>
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() =>
-            resolve({
-              preload: video.preload,
-              controls: video.controls,
-              playsInline: video.playsInline,
-              autoplay: video.autoplay,
-              paused: video.paused,
-              currentTime: video.currentTime,
-              readyState: video.readyState,
-            }),
-          ),
-        ),
-      ),
-  );
-  expect(state).toEqual({
-    preload: 'none',
-    controls: true,
-    playsInline: true,
-    autoplay: false,
-    paused: true,
-    currentTime: 0,
-    readyState: 0,
-  });
-  expect(teaserRequests()).toEqual([]);
+  await expect(upcoming.locator('.upcoming-feature')).toHaveCount(5);
+  await expect(upcoming.locator('video')).toHaveCount(0);
+  await expect(upcoming.locator('.upcoming-question')).toHaveCount(0);
+  await expect(upcoming.locator('#biosenz-2-0-note')).toHaveCount(0);
   await expect(page.locator('#video video source')).toHaveAttribute(
     'src',
     '/media/biosenz-vsl-sem-aviso.mp4',
   );
-  expect(resources.failures).toEqual([]);
 });
 
-test('mobile keyboard navigation reaches Biosenz 2.0 and its FAQs clarify release and plan availability', async ({
+test('mobile keyboard navigation reaches Biosenz 2.0 and opens its feature details', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -514,29 +473,18 @@ test('mobile keyboard navigation reaches Biosenz 2.0 and its FAQs clarify releas
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/#biosenz-2-0$/);
   await expect(page.locator('#mobile-menu')).toBeHidden();
-  const questions = page.locator('#biosenz-2-0 .upcoming-question');
-  await expect(questions).toHaveCount(2);
-  const release = questions.filter({ hasText: 'Quando as novidades estarão disponíveis?' });
-  const plans = questions.filter({ hasText: 'Quais planos terão acesso ao Biosenz 2.0?' });
-  await release.locator('summary').focus();
+  const documents = page
+    .locator('#biosenz-2-0 .upcoming-feature')
+    .filter({ hasText: 'Documentos enviados com controle' });
+  await documents.locator('summary').focus();
   await page.keyboard.press('Enter');
-  await expect(release).toHaveAttribute('open', '');
-  await expect(release.locator('p')).toBeVisible();
-  await expect(release.locator('p')).toContainText(
-    'A data de lançamento e a disponibilidade dos recursos ainda serão confirmadas',
-  );
-  await page.keyboard.press('Tab');
-  await expect(plans.locator('summary')).toBeFocused();
+  await expect(documents).toHaveAttribute('open', '');
+  await expect(documents.locator('.feature-description')).toBeVisible();
+  await expect(documents.locator('.feature-description')).toContainText('Você vai poder enviar');
   await page.keyboard.press('Space');
-  await expect(plans).toHaveAttribute('open', '');
-  await expect(plans.locator('p')).toBeVisible();
-  await expect(plans.locator('p')).toContainText(
-    'As novidades desta página não indicam disponibilidade nos planos atuais.',
-  );
-  await page.keyboard.press('Space');
-  await expect(plans).not.toHaveAttribute('open', '');
-  await expect(plans.locator('p')).toBeHidden();
-  await expect(plans.locator('summary')).toBeFocused();
+  await expect(documents).not.toHaveAttribute('open', '');
+  await expect(documents.locator('.feature-description')).toBeHidden();
+  await expect(documents.locator('summary')).toBeFocused();
 });
 
 test.describe('without JavaScript', () => {

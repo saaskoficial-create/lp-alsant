@@ -37,6 +37,6 @@ Formulário com labels permanentes, erros associados ao campo, foco visível, st
 
 ## Novidades anunciadas do Biosenz 2.0
 
-A seção `#biosenz-2-0`, entre a vitrine atual e a comparação de rotina, apresenta cinco frentes futuras: atendimento completo, envio protegido de documentos, comparação de exames, modelos reutilizáveis e agenda/financeiro. O selo “Em breve”, os verbos futuros e o FAQ deixam explícito que lançamento, disponibilidade e planos ainda serão confirmados. As novidades não são misturadas às capturas dos módulos atuais.
+A seção `#biosenz-2-0`, entre a vitrine atual e a comparação de rotina, apresenta cinco frentes futuras: atendimento completo, envio protegido de documentos, comparação de exames, modelos reutilizáveis e agenda/financeiro. O selo “Em breve” e os verbos futuros deixam explícito que os recursos pertencem à próxima versão; a seção não informa data ou planos de acesso. As novidades não são misturadas às capturas dos módulos atuais.
 
-Composição editorial sobre a superfície verde suave, lista numerada com disclosures HTML nativos e teaser vertical do anúncio fornecido pelo cliente. Sem novas dependências ou animação automática; o vídeo só carrega/reproduz por ação do visitante e informa que não tem áudio. Navegação, rodapé e duas notas da comparação apontam para a próxima versão. No mobile, vídeo e FAQ seguem a lista em uma coluna.
+Composição editorial sobre a superfície verde suave, com lista numerada de disclosures HTML nativos. Sem novas dependências ou animação automática. Por solicitação do cliente, a seção não inclui o vídeo promocional, o FAQ ou a nota de disponibilidade. Navegação, rodapé e duas notas da comparação apontam para a próxima versão. A lista se adapta à largura disponível no desktop e no mobile.
