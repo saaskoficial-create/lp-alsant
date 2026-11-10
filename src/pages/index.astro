@@ -6,6 +6,7 @@ import Header from '@/components/Header.astro';
 import LaptopMockup from '@/components/LaptopMockup.astro';
 import AnatomyMotion from '@/components/AnatomyMotion.astro';
 import ProductShowcase from '@/components/ProductShowcase.astro';
+import UpcomingBiosenz from '@/components/UpcomingBiosenz.astro';
 import HelixMotif from '@/components/HelixMotif.astro';
 import Icon from '@/components/Icon.astro';
 import Testimonials from '@/components/Testimonials.astro';
@@ -113,7 +114,8 @@ const heroTitleParts = copy.hero.title.split(/(analise exames|menos de 3 minutos
           aria-label="Apresentação da Biosenz com áudio e legendas em português"
         >
           <source src="/media/biosenz-vsl-sem-aviso.mp4" type="video/mp4" />
-          Seu navegador não suporta vídeo. <a href="/media/biosenz-vsl-sem-aviso.mp4">Assista à apresentação da Biosenz</a>.
+          Seu navegador não suporta vídeo.{' '}
+          <a href="/media/biosenz-vsl-sem-aviso.mp4">Assista à apresentação da Biosenz</a>.
         </video>
       </section>
 
@@ -207,6 +209,8 @@ const heroTitleParts = copy.hero.title.split(/(analise exames|menos de 3 minutos
         <ProductShowcase />
       </section>
 
+      <UpcomingBiosenz />
+
       <section id="rotina" class="comparison-section section" aria-labelledby="comparison-title">
         <div class="ambient-helix" aria-hidden="true">
           <HelixMotif />
@@ -239,7 +243,15 @@ const heroTitleParts = copy.hero.title.split(/(analise exames|menos de 3 minutos
                   <span class="mobile-comparison-label">Com a Biosenz</span>
                   <span class="with-copy">
                     <Icon name="check" />
-                    {item.with}
+                    <span>
+                      {item.with}
+                      {item.upcoming && (
+                        <span class="comparison-upcoming">
+                          <strong>Em breve no Biosenz 2.0</strong>
+                          {item.upcoming}
+                        </span>
+                      )}
+                    </span>
                   </span>
                 </p>
               </article>
@@ -335,6 +347,7 @@ const heroTitleParts = copy.hero.title.split(/(analise exames|menos de 3 minutos
           <h3>Explore</h3>
           <a href="#analise">Como funciona</a>
           <a href="#plataforma">A plataforma</a>
+          <a href="#biosenz-2-0">Novidades 2.0</a>
           <a href="#rotina">Na sua rotina</a>
           <a href="#demonstracao">Agende uma demonstração</a>
         </nav>

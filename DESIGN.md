@@ -34,3 +34,9 @@ Na revisão com Impeccable, o contexto durável de produto passou a `PRODUCT.md`
 Sete módulos: hero, problema, plataforma, comparação, diferenciação, depoimentos e conversão. Depoimentos permanecem ocultos até existir um mínimo de dois registros reais aprovados em src/content/landing.ts. As capturas do produto usam dados fictícios públicos; a foto de consulta é licenciada e o vídeo anatômico é uma ilustração sintética. Proveniência documentada separadamente. Todos os CTAs comerciais levam a #demonstracao.
 
 Formulário com labels permanentes, erros associados ao campo, foco visível, status anunciado, valores preservados em falhas e estado pendente. Sem destino configurado, exibir indisponibilidade; nunca sucesso local simulado. Nenhum pixel/evento de conversão instalado.
+
+## Novidades anunciadas do Biosenz 2.0
+
+A seção `#biosenz-2-0`, entre a vitrine atual e a comparação de rotina, apresenta cinco frentes futuras: atendimento completo, envio protegido de documentos, comparação de exames, modelos reutilizáveis e agenda/financeiro. O selo “Em breve”, os verbos futuros e o FAQ deixam explícito que lançamento, disponibilidade e planos ainda serão confirmados. As novidades não são misturadas às capturas dos módulos atuais.
+
+Composição editorial sobre a superfície verde suave, lista numerada com disclosures HTML nativos e teaser vertical do anúncio fornecido pelo cliente. Sem novas dependências ou animação automática; o vídeo só carrega/reproduz por ação do visitante e informa que não tem áudio. Navegação, rodapé e duas notas da comparação apontam para a próxima versão. No mobile, vídeo e FAQ seguem a lista em uma coluna.

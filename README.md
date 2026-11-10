@@ -49,6 +49,7 @@ Um timeout pode ocorrer depois de o destino aceitar o lead; a integração defin
 ## Conteúdo e manutenção
 
 - Copy e comparação: src/content/landing.ts.
+- Novidades futuras: src/components/UpcomingBiosenz.astro, em `#biosenz-2-0`. A seção mantém os cinco recursos anunciados como “Em breve”, sem data ou planos confirmados; atualizar essa condição somente após confirmação da Biosenz.
 - Depoimentos: ocultos por padrão; publicar apenas registros reais aprovados com imagem autorizada.
 - Marca e capturas oficiais da demonstração pública: public/brand e public/demo.
 - Fontes self-hosted e licenças: public/fonts.
@@ -60,6 +61,8 @@ Um timeout pode ocorrer depois de o destino aceitar o lead; a integração defin
 Página publicada em https://biosenz-alsant.vercel.app na Vercel. O domínio definitivo ainda não foi definido. A página mantém noindex no endereço provisório; ao publicar no domínio definitivo, remover noindex e configurar canonical/og:url/og:image absolutos. Metadados de título e descrição já estão presentes.
 
 A VSL legendada aparece em `#video`, após a abertura. Arquivo-fonte: `VSL-Biosenz-legendada.mp4`, exportado em 16/10/2026. A cópia em `public/media/biosenz-vsl-sem-aviso.mp4` mantém 1920×1080, áudio e legendas gravadas na imagem, com compressão H.264/AAC e faststart. O player usa controles nativos e `preload="none"`.
+
+O anúncio do Biosenz 2.0 foi integrado separadamente em 10/11/2026. `public/media/biosenz-2-0-teaser.mp4` é uma versão H.264 otimizada do vídeo promocional de 30 segundos fornecido pelo cliente; o original não contém áudio. O poster é um quadro desse mesmo anúncio. Os controles são nativos, sem autoplay e com `preload="none"`. O material apresenta recursos futuros, não valida disponibilidade em produção. As informações de envio protegido descrevem link e código no mesmo e-mail, sem alegação de autenticação em dois fatores; a visão financeira não anuncia integrações ou cobrança.
 
 Pendências externas: LEAD_WEBHOOK_URL definitivo e um envio recebido; dois ou três depoimentos aprovados; reconexão21st MCP, se ainda desejada. O MCP disponível retornou401 e nenhum código dele foi incorporado. Não há analytics ou conversão instalada.
 

@@ -27,10 +27,10 @@ export const copy = {
     intro: 'Você não precisa de mais uma ferramenta genérica para clínicas.',
     title: 'A Biosenz foi pensada para quem trabalha com saúde integrativa.',
     paragraphs: [
-      'Enquanto softwares tradicionais concentram-se principalmente em agenda, prontuário e gestão administrativa, a Biosenz atua em uma das partes mais complexas da rotina integrativa:',
+      'O centro da Biosenz é a inteligência clínica aplicada a uma das partes mais complexas da rotina integrativa:',
       'transformar grandes volumes de informações clínicas em dados organizados para apoiar sua tomada de decisão.',
-      'Não é apenas sobre armazenar informações.',
-      'É sobre conseguir analisar, cruzar e utilizar essas informações com muito mais velocidade.',
+      'Com o Biosenz 2.0, essa organização vai se ampliar para conectar atendimento, documentos, agenda e visão financeira.',
+      'As novidades vêm na próxima versão. O apoio à análise e à decisão do profissional continua no centro da experiência.',
     ],
   },
   final: {
@@ -40,7 +40,12 @@ export const copy = {
   },
 } as const;
 
-export const comparison: ReadonlyArray<{ title: string; without: string; with: string }> = [
+export const comparison: ReadonlyArray<{
+  title: string;
+  without: string;
+  with: string;
+  upcoming?: string;
+}> = [
   {
     title: 'Análise de exames',
     without: 'Abrir resultados, procurar parâmetros e cruzar informações manualmente.',
@@ -50,6 +55,7 @@ export const comparison: ReadonlyArray<{ title: string; without: string; with: s
     title: 'Histórico do paciente',
     without: 'Buscar informações entre prontuários, exames e anotações diferentes.',
     with: 'Tenha as principais informações clínicas centralizadas em um único ambiente.',
+    upcoming: 'Comparação de coletas lado a lado, com datas, resultados e unidades.',
   },
   {
     title: 'Sintomas + exames',
@@ -71,6 +77,7 @@ export const comparison: ReadonlyArray<{ title: string; without: string; with: s
     title: 'Depois do atendimento',
     without: 'Gastar mais tempo organizando prontuário, histórico e próximos passos.',
     with: 'Tenha transcrição, resumo e informações estruturadas para reduzir o trabalho manual.',
+    upcoming: 'Documentos organizados na ficha e envio por e-mail com link protegido e revogável.',
   },
 ];
 

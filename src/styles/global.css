@@ -723,6 +723,22 @@ select:focus-visible {
   width: 16px;
   height: 16px;
 }
+.comparison-upcoming {
+  display: block;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #cfdfd3;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #405d49;
+}
+.comparison-upcoming strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #1e6b45;
+  font-size: 12px;
+  font-weight: 650;
+}
 .mobile-comparison-label {
   display: none;
 }
